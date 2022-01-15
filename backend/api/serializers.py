@@ -114,7 +114,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         tags = self.initial_data.get("tags")
         if not tags:
             raise serializers.ValidationError(
-                "Убедитесь, что добавлен хотя бы один тег"
+                "Должен быть хотя бы один тег"
             )
         if len(tags) != len(set(tags)):
             raise serializers.ValidationError("Теги должны быть уникальными")
@@ -123,7 +123,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         ingredients = self.initial_data.get("ingredients")
         if not ingredients or len(ingredients) < 1:
             raise serializers.ValidationError(
-                "Нужен хоть один ингридиент для рецепта"
+                "Минимум один ингридиент для рецепта"
             )
         ingredient_list = []
         for ingredient_item in ingredients:
@@ -137,14 +137,14 @@ class RecipeSerializer(serializers.ModelSerializer):
             ingredient_list.append(ingredient)
             if int(ingredient_item["amount"]) <= 0:
                 raise serializers.ValidationError(
-                    "Убедитесь, что значение количества ингредиента больше 0"
+                    "Значение количества ингредиента дожно быть больше 0"
                 )
         data["ingredients"] = ingredients
 
         cooking_time = self.initial_data.get("cooking_time")
         if not int(cooking_time) > 0:
             raise serializers.ValidationError(
-                "Убедитесь, что время приготовления больше нуля"
+                "Время приготовления должно больше нуля"
             )
         data["cooking_time"] = cooking_time
         return data
@@ -201,7 +201,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
     def validate(self, data):
         if Favorite.objects.filter(user=data['user'],
                                    recipe=data['recipe']).exists():
-            raise serializers.ValidationError('Рецепт уже есть в избранном!')
+            raise serializers.ValidationError('Рецепт уже добавлен в избраноне')
         return data
 
 
@@ -218,7 +218,6 @@ class CartSerializer(serializers.ModelSerializer):
                         'recipe': {'write_only': True}}
 
     def validate(self, data):
-        """Валидация при добавлении рецепта в список покупок."""
         if Cart.objects.filter(user=data['user'],
                                recipe=data['recipe']).exists():
             raise serializers.ValidationError('Рецепт уже есть в списке'

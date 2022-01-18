@@ -18,12 +18,12 @@ def generate_pdf_shopping_list(user):
         'attachment; filename="shopping_list.pdf"'
     )
     pdfmetrics.registerFont(
-        TTFont('DejaVuSerif', 'DejaVuSerif.ttf', 'UTF-8')
+        TTFont('Slimamif', 'Slimamif.ttf', 'UTF-8')
     )
     page = Canvas(filename=response)
-    page.setFont('DejaVuSerif', 24)
+    page.setFont('Slimamif', 24)
     page.drawString(210, 800, 'Список покупок')
-    page.setFont('DejaVuSerif', 16)
+    page.setFont('Slimamif', 16)
     height = 760
     is_page_done = False
     for idx, ingr in enumerate(shopping_list, start=1):
@@ -39,4 +39,4 @@ def generate_pdf_shopping_list(user):
     if not is_page_done:
         page.showPage()
     page.save()
-    return
+    return response

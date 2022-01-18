@@ -53,8 +53,7 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='recipes/',
                               verbose_name='Фото рецепта')
     text = models.TextField(verbose_name='Описание рецепта')
-    ingredients = models.ManyToManyField(
-                                         Ingredient,
+    ingredients = models.ManyToManyField(Ingredient,
                                          through='RecipeIngredient',
                                          verbose_name='Ингридиенты рецепта',)
     tags = models.ManyToManyField(Tag, verbose_name='Теги')
@@ -107,8 +106,7 @@ class RecipeIngredient(models.Model):
 
 
 class Favorite(models.Model):
-    user = models.ForeignKey(
-                             User, on_delete=models.CASCADE,
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='favorites',
                              verbose_name='Пользователь',)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,

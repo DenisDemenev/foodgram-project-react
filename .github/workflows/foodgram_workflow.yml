@@ -80,8 +80,6 @@ jobs:
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             sudo docker-compose up -d
             sudo docker-compose exec -T backend python manage.py collectstatic --noinput
-            sudo docker-compose exec -T backend python manage.py makemigrations --noinput
-            sudo docker-compose exec -T backend python manage.py migrate --noinput
   send_message:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest

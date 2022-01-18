@@ -66,6 +66,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
+            sudo docker-compose stop
+            sudo docker-compose rm web
             sudo docker pull ekbtoys/foodgram_frontend:v1
             sudo docker pull ekbtoys/foodgram:v1
             sudo docker-compose stop

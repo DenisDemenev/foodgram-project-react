@@ -9,11 +9,17 @@ class Tag(models.Model):
     BLUE = '#0000FF'
     GREEN = '#008000'
     YELLOW = '#FFFF00'
+    PINK = '#FFC0CB'
+    ORANGERED = '#FF4500'
+    PURPLE = '#800080'
 
     COLORS_CHOICES = [
         (BLUE, 'Синий'),
         (GREEN, 'Зеленый'),
         (YELLOW, 'Желтый'),
+        (PINK, 'Розовый'),
+        (ORANGERED, 'Оранжево-красный'),
+        (PURPLE, 'Пурпурный'),
     ]
 
     name = models.CharField(max_length=200, verbose_name='Название')
